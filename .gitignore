@@ -1,0 +1,21 @@
+.tmp/
+
+#ignore puppet modules folder
+modules/
+
+#ignore vagrant folder
+.vagrant
+
+#git mergetool backups
+*.orig
+
+#lxms archives
+site/profile/files/infrastructure/linux/*gz
+site/profile/files/infrastructure/linux/*zip
+
+.vscode/
+
+# Kitchen relatives
+.kitchen
+.librarian
+Gemfile.lock

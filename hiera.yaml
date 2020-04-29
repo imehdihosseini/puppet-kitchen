@@ -1,0 +1,12 @@
+---
+version: 5
+defaults:
+  datadir: 'hieradata'
+  data_hash: yaml_data
+hierarchy:
+  
+  - name: "Per business role"
+    path: "roles/%{::role}.yaml"
+
+  - name: "Per Business environment"
+    path: "environments/%{::env}.yaml"

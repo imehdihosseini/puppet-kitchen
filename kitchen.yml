@@ -1,0 +1,52 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: windows-2012
+    driver:
+      box: addle/windows-server-2012-r2
+      vm_hostname: kitchen-windows-agent-1.local.com
+      provision: true
+      customize:
+        memory: 4000
+        name: kitchen-windows-agent-1
+        clipboard-mode: 'bidirectional' 
+      transport:
+        name: winrm
+        elevated: true
+      driver_config:
+        box: WindowsServ2012R2
+        username: vagrant
+        password: vagrant
+        communicator: winrm
+
+provisioner:
+  name: puppet_apply
+  puppet_windows_version: 5.5.19
+  puppet_version: 5.5.19
+  puppet_environment: production
+  environment_path: 
+  manifests_path: spec/manifests
+  modules_path: modules
+  hiera_data_path: hieradata
+  require_chef_for_busser: false
+  puppet_debug: true
+  puppet_verbose: true
+  max_retries: 3
+  resolve_with_librarian_puppet: false
+  puppetfile_path: Puppetfile
+  puppet_server: puppet
+  puppet_apply_command: "C:\\etc\\puppet\\spec\\shell\\bootstrap.ps1 iis"
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default
+    suites:
+    manifest: init.pp
+    run_list:
+    verifier:
+      inspec_tests:
+        - spec/test/integration/default
